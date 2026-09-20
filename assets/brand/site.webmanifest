@@ -1,0 +1,20 @@
+{
+ "name": "Federal Per Diem Calc",
+ "short_name": "Federal Per Diem Calc",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#ea7317",
+ "icons": [
+  {
+   "src": "/assets/brand/icon-180.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "/assets/brand/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}

@@ -1,0 +1,186 @@
+/* layouts.css — six template archetypes, so no two sites in the fleet share a look.
+ *
+ * A site picks one with a class on <html>:   <html lang="en-US" class="layout-editorial">
+ * Each archetype changes real structure — type pairing, hero shape, card treatment, header,
+ * rhythm and section banding — not just the brand hex. Combined with a palette from themes.css
+ * each of the 13 sites gets a distinct (layout x palette) identity.
+ *
+ * SECTION-WISE COLOUR
+ * Pages are sectionised at build time (tools/sectionize.mjs wraps each h2 and its content in
+ * <section class="sec">). Each section then draws from a rotating three-stop ramp derived from
+ * the site's brand and accent, so colour changes as the reader moves down the page.
+ */
+
+/* ---------------- section ramp (shared by all archetypes) ---------------- */
+/* Base value on <main> so --sec always resolves. The hero (h1 + lede) sits before the first h2 and
+   is therefore outside every .sec — without this fallback var(--sec) is invalid there, which silently
+   drops backgrounds that depend on it (white-on-white lede in layout-bold). */
+main { --sec: var(--brand); }
+main .sec { --sec: var(--brand); position: relative; }
+main .sec:nth-of-type(3n+2) { --sec: color-mix(in srgb, var(--accent) 80%, var(--brand)); }
+main .sec:nth-of-type(3n+3) { --sec: color-mix(in srgb, var(--brand) 55%, var(--accent)); }
+
+main .sec > h2::before { background: linear-gradient(90deg, var(--sec), color-mix(in srgb, var(--sec) 35%, transparent)); }
+main .sec table thead th { color: color-mix(in srgb, var(--sec) 72%, var(--muted)); }
+main .sec table tbody tr:hover { background: color-mix(in srgb, var(--sec) 4%, transparent); }
+main .sec .faq details[open] { border-color: color-mix(in srgb, var(--sec) 32%, var(--line)); }
+main .sec .faq summary::after { color: var(--sec); }
+main .sec li::marker { color: color-mix(in srgb, var(--sec) 70%, var(--muted)); }
+main .sec a { color: color-mix(in srgb, var(--sec) 84%, #000 16%); }
+:root[data-theme="dark"] main .sec a { color: color-mix(in srgb, var(--sec) 68%, #fff 32%); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) main .sec a { color: color-mix(in srgb, var(--sec) 68%, #fff 32%); }
+}
+
+/* Banded archetypes tint alternate sections edge to edge. */
+/* Prose-only sections read as cards so sparse content doesn't leave dead space.
+   Sections containing grids/calculators/FAQ keep their full width untouched. */
+main .sec.is-wide, main .sec.is-short {
+  background: color-mix(in srgb, var(--sec) 4.5%, transparent);
+  padding: 2.25rem 2rem 2.5rem;
+  margin: 2.5rem 0;
+  max-width: calc(var(--measure) + 4rem);
+  border: 1px solid color-mix(in srgb, var(--sec) 18%, var(--line));
+  border-radius: var(--radius);
+}
+
+.layout-magazine main .sec:nth-of-type(even) > h2,
+.layout-bold main .sec:nth-of-type(even) > h2,
+.layout-dashboard main .sec:nth-of-type(even) > h2 { margin-top: 0; }
+
+/* ================= 1. EDITORIAL — serif, generous, rule dividers ================= */
+.layout-editorial { --measure: 38rem; --radius: 4px; --radius-sm: 3px; }
+.layout-editorial h1 { font-weight: 500; letter-spacing: -.035em; }
+.layout-editorial main .sec + .sec { border-top: 1px solid var(--line); padding-top: 2.75rem; }
+.layout-editorial main .sec > h2::before { width: 100%; height: 1px; opacity: .45; }
+.layout-editorial ul:has(> li > a > strong) > li {
+  border: 0; border-top: 2px solid var(--sec); border-radius: 0; box-shadow: none;
+  background: transparent; padding: 1.15rem 0 0;
+}
+.layout-editorial ul:has(> li > a > strong) > li:hover { transform: none; box-shadow: none; }
+.layout-editorial .card-icon { background: transparent; border: 0; width: auto; height: auto; margin-bottom: .6rem; color: var(--sec); }
+.layout-editorial .answer { font-style: italic; }
+
+/* ================= 2. DASHBOARD — sans, boxed, compact, data-first ================= */
+.layout-dashboard { --font-display: var(--font); --measure: 44rem; --radius: 10px; --radius-sm: 7px; }
+.layout-dashboard h1 { font-weight: 720; letter-spacing: -.03em; font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); }
+.layout-dashboard h2 { font-weight: 680; letter-spacing: -.02em; }
+.layout-dashboard .answer {
+  font-family: var(--font); font-size: 1.08rem; border-left: 0;
+  background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1.1rem 1.25rem;
+}
+.layout-dashboard .calc-stat .v { font-family: var(--font); font-weight: 720; }
+.layout-dashboard ul:has(> li > a > strong) > li { border-left: 3px solid var(--sec); }
+.layout-dashboard header.site { border-bottom-width: 2px; }
+
+/* ================= 3. MINIMAL — hairlines, air, no boxes ================= */
+.layout-minimal { --measure: 36rem; --shadow: none; --shadow-sm: none; --shadow-lg: none; }
+.layout-minimal h1 { font-weight: 400; letter-spacing: -.03em; }
+.layout-minimal h2 { font-weight: 500; }
+.layout-minimal main .sec > h2::before { width: 1.25rem; height: 1px; }
+.layout-minimal ul:has(> li > a > strong) > li {
+  border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+  background: transparent; padding: 1.4rem 0; box-shadow: none;
+}
+.layout-minimal ul:has(> li > a > strong) > li:hover { transform: none; border-color: var(--sec); }
+.layout-minimal ul:has(> li > a > strong) { gap: 0 2.5rem; }
+.layout-minimal #calculator { box-shadow: none; border-radius: 6px; }
+.layout-minimal table { border-left: 0; border-right: 0; border-radius: 0; }
+.layout-minimal table thead th { background: transparent; border-bottom: 1px solid var(--line-strong); }
+.layout-minimal .card-icon { border: 0; background: transparent; width: auto; height: auto; color: var(--sec); }
+.layout-minimal footer.site { background: transparent; }
+
+/* ================= 4. MAGAZINE — big hero, drop cap, banded sections ================= */
+.layout-magazine { --measure: 39rem; --radius: 2px; --radius-sm: 2px; }
+.layout-magazine h1 { font-weight: 600; font-size: clamp(2.6rem, 1.6rem + 4.4vw, 4.75rem); letter-spacing: -.035em; }
+.layout-magazine .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); }
+.layout-magazine .answer {
+  border-left: 0; padding-left: 0; font-size: clamp(1.25rem, 1.1rem + .6vw, 1.55rem);
+  border-top: 2px solid var(--brand); padding-top: 1.1rem;
+}
+/* drop cap on the first paragraph of each section */
+.layout-magazine main .sec > p:first-of-type::first-letter {
+  float: left; font-family: var(--font-display); font-size: 3.4em; line-height: .82;
+  padding: .06em .09em 0 0; color: var(--sec); font-weight: 600;
+}
+.layout-magazine main .sec > h2 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem); }
+.layout-magazine ul:has(> li > a > strong) > li { border-top: 3px solid var(--sec); border-radius: 0; }
+
+/* ================= 5. UTILITY — tool-first, dense, tight ================= */
+.layout-utility { --font-display: var(--font); --measure: 42rem; --radius: 8px; --radius-sm: 6px; }
+.layout-utility body { font-size: 1rem; }
+.layout-utility h1 { font-weight: 700; font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem); letter-spacing: -.028em; }
+.layout-utility h2 { font-weight: 660; font-size: clamp(1.35rem, 1.2rem + .6vw, 1.7rem); margin-top: 2.75rem; }
+.layout-utility main .sec > h2::before { display: none; }
+.layout-utility main .sec > h2 { border-left: 3px solid var(--sec); padding-left: .7rem; }
+.layout-utility .answer { font-family: var(--font); font-size: 1.02rem; }
+.layout-utility #calculator { margin-top: 1.25rem; }
+.layout-utility .hero { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 2rem; }
+.layout-utility table { font-size: .88rem; }
+.layout-utility table th, .layout-utility table td { padding: .55rem .75rem; }
+.layout-utility ul:has(> li > a > strong) > li { padding: 1.1rem 1.2rem; }
+
+/* ---------------- mobile: archetype hero overrides must not outlive the breakpoint ----------------
+   The base stack rule is `.hero{grid-template-columns:1fr}` (0,1,0). Archetypes override the hero
+   with `.layout-x .hero` (0,2,0) and would otherwise keep two columns on a phone — which squeezed
+   the text column to ~110px and pushed the h1 outside the viewport. Re-assert the stack at equal
+   specificity inside the breakpoint. */
+@media (max-width: 54rem) {
+  .layout-editorial .hero, .layout-dashboard .hero, .layout-minimal .hero,
+  .layout-magazine .hero, .layout-utility .hero, .layout-bold .hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+/* ================= 6. BOLD — heavy sans, colour blocks, high contrast ================= */
+.layout-bold { --font-display: var(--font); --measure: 40rem; --radius: 18px; --radius-sm: 12px; }
+.layout-bold h1 { font-weight: 800; letter-spacing: -.042em; line-height: .98; }
+.layout-bold h2 { font-weight: 760; letter-spacing: -.03em; }
+.layout-bold main .sec > h2::before { width: 3.5rem; height: 5px; border-radius: 3px; }
+.layout-bold .answer {
+  border-left: 0; background: var(--sec); color: #fff; border-radius: var(--radius);
+  padding: 1.5rem 1.7rem; font-family: var(--font); font-weight: 500;
+  font-size: clamp(1.1rem, 1rem + .45vw, 1.3rem);
+}
+.layout-bold .answer strong { color: #fff; font-weight: 720; }
+.layout-bold .logo::before { border-radius: 50%; }
+.layout-bold ul:has(> li > a > strong) > li { border: 2px solid var(--line); box-shadow: none; }
+.layout-bold ul:has(> li > a > strong) > li:hover { border-color: var(--sec); transform: translateY(-4px); }
+.layout-bold .card-icon { border-radius: 50%; background: var(--sec); color: #fff; border: 0; }
+.layout-bold .calc-stat.strong { border-radius: var(--radius); }
+.layout-bold table { border-width: 2px; }
+
+
+/* Desktop section layout:
+   .is-wide  = long prose -> full row, text flows in two columns (readable measure, no dead space)
+   .is-short = heading + link list -> half row, so two pair up side by side
+   plain .sec (tables, FAQ, calculators, step/stat grids) -> full row, untouched */
+@media (min-width: 64rem) {
+  main .wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.75rem; row-gap: 0; align-items: start; }
+  main .wrap > * { grid-column: 1 / -1; min-width: 0; }
+  main .wrap > .sec.is-short { grid-column: span 1; max-width: none; }
+  main .wrap > .sec.is-wide { grid-column: 1 / -1; max-width: none;
+    column-count: 2; column-gap: 2.75rem; }
+  main .wrap > .sec.is-wide > h2 { column-span: all; }
+  main .wrap > .sec.is-wide > * { max-width: none; }
+  main .wrap > .sec.is-wide > ul, main .wrap > .sec.is-wide > ol { break-inside: avoid-column; }
+}
+
+/* tables use the full section width instead of the prose measure */
+/* Desktop: real table layout so rows fill the width (no dead gap).
+   Base site.css sets display:block for mobile scrolling; we override it above 48rem. */
+@media (min-width: 48rem) {
+  main table {
+    display: table; width: 100%; max-width: none; overflow-x: visible; }
+}
+
+/* Mobile: wide tables scroll inside their own box instead of being crushed.
+   (Desktop keeps them full-width and un-scrolled.) */
+@media (max-width: 48rem) {
+  main table {
+    display: block; width: 100%; max-width: 100%;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  main table thead th, main table td { white-space: nowrap; }
+}

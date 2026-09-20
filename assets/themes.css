@@ -1,0 +1,43 @@
+/* themes.css — named colour variants for the shared design system.
+ *
+ * Two ways to use a variant:
+ *   1. Inline, one line in <head>   :root{--brand:#1e5fd6;--accent:#0891b2}
+ *   2. Link this file and put the class on <html>   <html class="theme-azure">
+ *
+ * Every other colour (hover, tints, gradients, dark-mode variants) is derived from --brand
+ * with color-mix(), so these two values are the whole theme. --accent is used only for the
+ * logo mark and the calculator's top rule; set it equal to --brand for a monochrome look.
+ *
+ * All brand values are chosen to hold contrast as text on white (>=4.5:1) and, via the
+ * derived --brand-ink lightening in dark mode, on the dark surface too.
+ */
+
+.theme-azure    { --brand: #1e5fd6; --accent: #0891b2; }  /* trust, finance, government   */
+.theme-indigo   { --brand: #4f46e5; --accent: #8b5cf6; }  /* fintech, payroll, tax        */
+.theme-emerald  { --brand: #047857; --accent: #10b981; }  /* money saved, health, growth  */
+.theme-teal     { --brand: #0f766e; --accent: #0891b2; }  /* clinical, calm, data         */
+.theme-ember    { --brand: #c2410c; --accent: #f59e0b; }  /* commerce, marketplace, food  */
+.theme-crimson  { --brand: #be123c; --accent: #f43f5e; }  /* fitness, performance, sport  */
+.theme-plum     { --brand: #7e22ce; --accent: #db2777; }  /* creator, media, lifestyle    */
+.theme-graphite { --brand: #334155; --accent: #0ea5e9; }  /* neutral premium, editorial   */
+
+/* Optional warmer paper tone — pairs well with ember, crimson and plum.
+   Add alongside a theme class: <html class="theme-ember tone-warm"> */
+.tone-warm {
+  --bg: #fdfcfa;
+  --surface: #ffffff;
+  --soft: #f8f5f1;
+  --sunken: #f0ebe4;
+  --line: #e9e2d9;
+  --line-strong: #d6ccbf;
+}
+@media (prefers-color-scheme: dark) {
+  .tone-warm {
+    --bg: #14110f;
+    --surface: #1b1714;
+    --soft: #1d1916;
+    --sunken: #251f1b;
+    --line: #2e2722;
+    --line-strong: #3f362f;
+  }
+}
