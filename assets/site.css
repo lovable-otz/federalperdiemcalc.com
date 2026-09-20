@@ -625,3 +625,80 @@ footer.site .wrap > p { margin: 0; max-width: none; }
   main .wrap > .sec:not(.is-short):not(.is-wide) > ol { max-width: none; }
   main .wrap > .sec:not(.is-short):not(.is-wide) > p { columns: 2; column-gap: 2.75rem; }
 }
+
+/* ---- section rhythm + full-bleed figures (older sites) ---- */
+main .wrap > .sec { margin-block: 2.25rem; }
+main .wrap > .sec:first-of-type { margin-top: 1.25rem; }
+/* figures and media should span the section, not stop at the prose measure */
+main .sec > .sec-photo,
+main .sec > figure { max-width: none; }
+.sec-photo { margin: .3rem 0 1.15rem; }
+.sec-photo img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover;
+  border-radius: var(--radius); display: block; }
+@media (max-width: 48rem) { .sec-photo img { aspect-ratio: 16 / 9; } }
+
+/* ---- breathing room under the navbar on pages with no breadcrumb ---- */
+main > .wrap > .hero:first-child,
+main > .wrap > h1:first-child { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+
+/* ---- media + cards side by side, alternating down the page ---- */
+@media (min-width: 64rem) {
+  main .sec:has(> .sec-photo):has(> ul) {
+    display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    gap: 1rem 2.2rem; align-items: center; column-count: 1; }
+  main .sec:has(> .sec-photo):has(> ul) > h2 { grid-column: 1 / -1; grid-row: 1; }
+  main .sec:has(> .sec-photo):has(> ul) > .sec-photo { grid-column: 2; grid-row: 2; margin: 0; }
+  main .sec:has(> .sec-photo):has(> ul) > ul { grid-column: 1; grid-row: 2; }
+  main .sec:has(> .sec-photo):has(> ul):nth-of-type(even) > .sec-photo { grid-column: 1; grid-row: 2; }
+  main .sec:has(> .sec-photo):has(> ul):nth-of-type(even) > ul { grid-column: 2; grid-row: 2; }
+  main .sec:has(> .sec-photo):has(> ul) > ul { grid-template-columns: minmax(0,1fr) !important; }
+  main .sec:has(> .sec-photo):has(> ul) > .sec-photo img { aspect-ratio: 4 / 5; height: auto; }
+}
+
+/* ================= hero: full-bleed image with text over it ================= */
+.hero {
+  position: relative; display: flex; align-items: center;
+  min-height: clamp(320px, 38vw, 440px);
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  margin-bottom: 1.6rem;
+  border-radius: calc(var(--radius) + 4px); overflow: hidden;
+  grid-template-columns: none; gap: 0;
+  isolation: isolate;
+  box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 26px 56px -30px rgba(15,23,42,.6); }
+
+.hero .hero-photo, .hero .hero-art {
+  position: absolute; inset: 0; margin: 0; z-index: 0; max-width: none; }
+.hero .hero-photo img {
+  width: 100%; height: 100%; max-height: none;
+  object-fit: cover; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
+.hero .hero-photo figcaption { display: none; }
+
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(100deg,
+      rgba(8,11,18,.58) 0%,
+      rgba(8,11,18,.42) 42%,
+      rgba(8,11,18,.16) 74%,
+      rgba(8,11,18,.02) 100%); }
+
+.hero > div { position: relative; z-index: 2; max-width: 58ch; min-width: 0; }
+.hero h1 { color: #fff; margin-top: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 14px rgba(0,0,0,.45); }
+/* the brand callout becomes plain text on the image */
+.hero p.answer {
+  background: none !important; box-shadow: none !important; padding: 0 !important;
+  border: 0 !important; border-radius: 0 !important;
+  color: rgba(255,255,255,.95); max-width: 54ch;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6), 0 1px 10px rgba(0,0,0,.5); }
+.hero p.answer strong, .hero p.answer em { color: #fff; }
+.hero p.answer a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.hero p.updated { color: rgba(255,255,255,.78); }
+.hero p.updated a, .hero p.updated time { color: rgba(255,255,255,.92); }
+
+@media (max-width: 48rem) {
+  .hero { min-height: 300px; padding: 1.35rem; }
+  .hero::after { background: linear-gradient(180deg, rgba(8,11,18,.62) 0%, rgba(8,11,18,.88) 70%); }
+  .hero > div { max-width: none; }
+}
