@@ -33,17 +33,12 @@ main .sec a { color: color-mix(in srgb, var(--sec) 84%, #000 16%); }
 }
 
 /* Banded archetypes tint alternate sections edge to edge. */
-/* Prose-only sections read as cards so sparse content doesn't leave dead space.
-   Sections containing grids/calculators/FAQ keep their full width untouched. */
-main .sec.is-wide, main .sec.is-short {
+.layout-magazine main .sec:nth-of-type(even),
+.layout-bold main .sec:nth-of-type(even),
+.layout-dashboard main .sec:nth-of-type(even) {
   background: color-mix(in srgb, var(--sec) 4.5%, transparent);
-  padding: 2.25rem 2rem 2.5rem;
-  margin: 2.5rem 0;
-  max-width: calc(var(--measure) + 4rem);
-  border: 1px solid color-mix(in srgb, var(--sec) 18%, var(--line));
-  border-radius: var(--radius);
+  padding: 2.5rem 0 3rem; margin: 2.5rem 0;
 }
-
 .layout-magazine main .sec:nth-of-type(even) > h2,
 .layout-bold main .sec:nth-of-type(even) > h2,
 .layout-dashboard main .sec:nth-of-type(even) > h2 { margin-top: 0; }
@@ -53,12 +48,28 @@ main .sec.is-wide, main .sec.is-short {
 .layout-editorial h1 { font-weight: 500; letter-spacing: -.035em; }
 .layout-editorial main .sec + .sec { border-top: 1px solid var(--line); padding-top: 2.75rem; }
 .layout-editorial main .sec > h2::before { width: 100%; height: 1px; opacity: .45; }
+/* Editorial cards: a real surface with a hairline border and a top accent rule. The earlier
+   borderless treatment (top rule on transparent) read as unfinished text rather than a card,
+   so the panel is back; the square corners and flat shadow keep it editorial rather than glossy. */
 .layout-editorial ul:has(> li > a > strong) > li {
-  border: 0; border-top: 2px solid var(--sec); border-radius: 0; box-shadow: none;
-  background: transparent; padding: 1.15rem 0 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--sec);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 1.35rem 1.5rem 1.5rem;
 }
-.layout-editorial ul:has(> li > a > strong) > li:hover { transform: none; box-shadow: none; }
-.layout-editorial .card-icon { background: transparent; border: 0; width: auto; height: auto; margin-bottom: .6rem; color: var(--sec); }
+.layout-editorial ul:has(> li > a > strong) > li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--line-strong);
+  border-top-color: var(--sec);
+}
+.layout-editorial .card-icon {
+  background: color-mix(in srgb, var(--sec) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sec) 20%, transparent);
+  border-radius: 0; width: 2.4rem; height: 2.4rem; margin-bottom: .9rem; color: var(--sec);
+}
 .layout-editorial .answer { font-style: italic; }
 
 /* ================= 2. DASHBOARD — sans, boxed, compact, data-first ================= */
@@ -150,37 +161,3 @@ main .sec.is-wide, main .sec.is-short {
 .layout-bold .card-icon { border-radius: 50%; background: var(--sec); color: #fff; border: 0; }
 .layout-bold .calc-stat.strong { border-radius: var(--radius); }
 .layout-bold table { border-width: 2px; }
-
-
-/* Desktop section layout:
-   .is-wide  = long prose -> full row, text flows in two columns (readable measure, no dead space)
-   .is-short = heading + link list -> half row, so two pair up side by side
-   plain .sec (tables, FAQ, calculators, step/stat grids) -> full row, untouched */
-@media (min-width: 64rem) {
-  main .wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 1.75rem; row-gap: 0; align-items: start; }
-  main .wrap > * { grid-column: 1 / -1; min-width: 0; }
-  main .wrap > .sec.is-short { grid-column: span 1; max-width: none; }
-  main .wrap > .sec.is-wide { grid-column: 1 / -1; max-width: none;
-    column-count: 2; column-gap: 2.75rem; }
-  main .wrap > .sec.is-wide > h2 { column-span: all; }
-  main .wrap > .sec.is-wide > * { max-width: none; }
-  main .wrap > .sec.is-wide > ul, main .wrap > .sec.is-wide > ol { break-inside: avoid-column; }
-}
-
-/* tables use the full section width instead of the prose measure */
-/* Desktop: real table layout so rows fill the width (no dead gap).
-   Base site.css sets display:block for mobile scrolling; we override it above 48rem. */
-@media (min-width: 48rem) {
-  main table {
-    display: table; width: 100%; max-width: none; overflow-x: visible; }
-}
-
-/* Mobile: wide tables scroll inside their own box instead of being crushed.
-   (Desktop keeps them full-width and un-scrolled.) */
-@media (max-width: 48rem) {
-  main table {
-    display: block; width: 100%; max-width: 100%;
-    overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  main table thead th, main table td { white-space: nowrap; }
-}
