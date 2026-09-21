@@ -181,11 +181,7 @@ header.site {
   -webkit-backdrop-filter: saturate(1.7) blur(14px);
   position: sticky; top: 0; z-index: 50;
 }
-header.site .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 4.5rem; gap: 1rem; flex-wrap: wrap; }
-.logo {
-  font-family: var(--font-display); font-weight: 600; font-size: 1.16rem; letter-spacing: -.022em;
-  text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: .6rem;
-}
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 4.5rem; gap: 1rem; flex-wrap: wrap; position: relative; }.logo { font-family: var(--font-display); font-weight: 600; font-size: 1.16rem; letter-spacing: -.022em; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 0; min-width: 0; max-width: 100%; }
 /* Placeholder mark, used until a site has real brand artwork. */
 .logo::before {
   content: ""; width: 1.55rem; height: 1.55rem; border-radius: 7px; flex: none;
@@ -193,15 +189,9 @@ header.site .wrap { display: flex; align-items: center; justify-content: space-b
   box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--brand) 55%, transparent);
 }
 /* Real artwork present — drop the placeholder. */
-.logo:has(.logo-mark)::before { display: none; }
-.logo-mark { display: inline-flex; line-height: 0; flex: none; }
-/* Wordmark: size by HEIGHT so the name is never squashed; width follows the viewBox. */
-.logo-mark .lk { height: 4rem; width: auto; max-width: 100%; display: block; }
-.logo { min-width: 0; max-width: 100%; }
-.logo-mark { min-width: 0; max-width: 100%; }
-.logo { gap: 0; }
-@media (max-width: 30rem) { .logo-mark .lk { height: 3.1rem; } }
-nav.site { display: flex; flex-wrap: wrap; gap: .2rem; }
+.logo:has(.logo-mark)::before { display: none; }.logo-mark { display: inline-flex; line-height: 0; flex: none; min-width: 0; max-width: 100%; }
+.logo-mark .lk { height: 4rem; width: auto; max-width: 100%; display: block; margin-block: 7px; }
+nav.site { display: flex; flex-wrap: wrap; gap: .15rem; align-items: center; }
 nav.site a {
   text-decoration: none; color: var(--muted); font-size: .9rem; font-weight: 540;
   padding: .5rem .8rem; border-radius: 8px; transition: background .15s, color .15s;
@@ -299,7 +289,7 @@ main ul:has(> li > a > strong) > li > a > strong {
   display: inline-flex; align-items: baseline; gap: .4rem;
 }
 main ul:has(> li > a > strong) > li > a > strong::after {
-  content: "→"; font-family: var(--font); font-size: .95rem; color: var(--brand);
+  content: ""; font-family: var(--font); font-size: .95rem; color: var(--brand);
   transition: transform .2s ease; display: inline-block;
 }
 main ul:has(> li > a > strong) > li:hover > a > strong::after { transform: translateX(3px); }
@@ -450,13 +440,6 @@ footer.site {
 }
 .footer-brand:hover { color: var(--brand); }
 .footer-brand .logo-mark .lk { height: 4.4rem; width: auto; }
-
-footer.site .wrap > p { margin: 0 0 1rem; max-width: none; }
-footer.site .wrap > p:first-child {
-  display: flex; flex-wrap: wrap; gap: .3rem 1.6rem;
-  padding-bottom: 1.4rem; margin-bottom: 1.4rem; border-bottom: 1px solid var(--line);
-}
-footer.site .wrap > p:first-child a { font-family: var(--font-display); font-size: 1rem; color: var(--ink); margin: 0; }
 footer.site a { color: var(--ink-2); margin-right: 1.2rem; text-decoration: none; font-weight: 520; }
 footer.site a:hover { color: var(--brand); text-decoration: underline; }
 
@@ -523,8 +506,7 @@ footer.site a:hover { color: var(--brand); text-decoration: underline; }
 }
 
 
-/* keep the lockup off the header's top/bottom edges */
-.logo-mark .lk { margin-block: 7px; }
+
 .footer-brand .logo-mark .lk { margin-block: 9px; }
 
 
@@ -533,15 +515,10 @@ footer.site .wrap > p:nth-of-type(1),
 footer.site .wrap > p:nth-of-type(2) {
   display: flex; flex-wrap: wrap; gap: .45rem 1.5rem; }
 
-footer.site .wrap > p:nth-of-type(1) a {
-  font-family: var(--font-display); font-size: 1rem; font-weight: 640; color: var(--ink); }
-footer.site .wrap > p:nth-of-type(2) a { font-size: .92rem; color: var(--muted); font-weight: 520; }
-
 /* legal block: divider, muted, tight */
 footer.site .wrap > p:nth-of-type(3) {
   border-top: 1px solid var(--line); padding-top: .95rem; margin-top: .5rem;
   font-size: .86rem; color: var(--muted); line-height: 1.5; }
-footer.site .wrap > p:nth-of-type(4) { font-size: .84rem; color: var(--muted); }
 
 @media (min-width: 48rem) {
   footer.site .wrap {
@@ -566,7 +543,6 @@ footer.site .wrap > p:nth-of-type(4) { font-size: .84rem; color: var(--muted); }
 /* ===================== footer blocks ===================== */
 footer.site .wrap {
   display: grid; gap: 2.1rem 2.6rem; grid-template-columns: 1fr; align-items: start; }
-footer.site .wrap > p { margin: 0; max-width: none; }
 .f-brand { display: block; }
 .f-brand .footer-brand { width: max-content; max-width: 100%; }
 
@@ -605,11 +581,7 @@ footer.site .wrap > p { margin: 0; max-width: none; }
 .hero-photo figcaption a { color: var(--muted); text-decoration: underline; }
 .hero-photo figcaption a:hover { color: var(--brand); }
 
-/* section feature photos */
-.sec-photo { margin: .2rem 0 1.15rem; max-width: none; }
-.sec-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
-  border-radius: var(--radius); display: block;
-  box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 14px 32px -20px rgba(15,23,42,.4); }
+.sec-photo { margin: .3rem 0 1.15rem; max-width: none; }.sec-photo img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; border-radius: var(--radius); display: block; box-shadow: 0 1px 2px rgba(15,23,42,.06), 0 18px 38px -24px rgba(15,23,42,.45); }
 .sec-photo figcaption { margin-top: .4rem; font-size: .72rem; color: var(--muted); }
 .sec-photo figcaption a { color: var(--muted); text-decoration: underline; }
 .sec-photo figcaption a:hover { color: var(--brand); }
@@ -627,14 +599,12 @@ footer.site .wrap > p { margin: 0; max-width: none; }
 }
 
 /* ---- section rhythm + full-bleed figures (older sites) ---- */
-main .wrap > .sec { margin-block: 2.25rem; }
+main .wrap > .sec { margin-block: clamp(2.2rem, 3.4vw, 3.2rem); }
 main .wrap > .sec:first-of-type { margin-top: 1.25rem; }
 /* figures and media should span the section, not stop at the prose measure */
 main .sec > .sec-photo,
 main .sec > figure { max-width: none; }
-.sec-photo { margin: .3rem 0 1.15rem; }
-.sec-photo img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover;
-  border-radius: var(--radius); display: block; }
+
 @media (max-width: 48rem) { .sec-photo img { aspect-ratio: 16 / 9; } }
 
 /* ---- breathing room under the navbar on pages with no breadcrumb ---- */
@@ -656,49 +626,837 @@ main > .wrap > h1:first-child { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
   main .sec:has(> .sec-photo):has(> ul) > .sec-photo img { aspect-ratio: 4 / 5; height: auto; }
 }
 
-/* ================= hero: full-bleed image with text over it ================= */
-.hero {
-  position: relative; display: flex; align-items: center;
-  min-height: clamp(320px, 38vw, 440px);
-  padding: clamp(1.5rem, 4vw, 3.25rem);
-  margin-bottom: 1.6rem;
-  border-radius: calc(var(--radius) + 4px); overflow: hidden;
-  grid-template-columns: none; gap: 0;
-  isolation: isolate;
-  box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 26px 56px -30px rgba(15,23,42,.6); }
+/* ===================== navbar: stylish + responsive ===================== */
+header.site { position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 1px solid var(--line); }
 
-.hero .hero-photo, .hero .hero-art {
-  position: absolute; inset: 0; margin: 0; z-index: 0; max-width: none; }
-.hero .hero-photo img {
-  width: 100%; height: 100%; max-height: none;
-  object-fit: cover; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
-.hero .hero-photo figcaption { display: none; }
 
-.hero::after {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+.nav-toggle { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+.burger { display: none; }
+
+
+nav.site a {
+  position: relative; padding: .5rem .8rem; border-radius: 8px;
+  font-size: .93rem; font-weight: 560; color: var(--ink-2, var(--ink));
+  text-decoration: none; white-space: nowrap;
+  transition: color .16s ease, background-color .16s ease; }
+nav.site a::after {
+  content: ""; position: absolute; left: .8rem; right: .8rem; bottom: .3rem; height: 2px;
+  border-radius: 2px; background: var(--brand);
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform .2s ease; }
+nav.site a:hover { color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 8%, transparent); }
+nav.site a:hover::after { transform: scaleX(1); }
+nav.site a[aria-current="page"] { color: var(--brand); }
+nav.site a[aria-current="page"]::after { transform: scaleX(1); }
+
+@media (max-width: 52rem) {
+  .burger { display: flex; align-items: center; justify-content: center;
+    width: 2.75rem; height: 2.75rem; margin-left: auto; cursor: pointer;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+  .burger span, .burger span::before, .burger span::after {
+    content: ""; display: block; width: 1.15rem; height: 2px; border-radius: 2px;
+    background: var(--ink); transition: transform .22s ease, opacity .18s ease; }
+  .burger span { position: relative; }
+  .burger span::before { position: absolute; top: -6px; }
+  .burger span::after  { position: absolute; top: 6px; }
+  .nav-toggle:checked ~ .burger span { background: transparent; }
+  .nav-toggle:checked ~ .burger span::before { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle:checked ~ .burger span::after  { transform: translateY(-6px) rotate(-45deg); }
+
+  nav.site {
+    flex-basis: 100%; flex-direction: column; align-items: stretch; gap: .15rem;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height .28s ease, opacity .2s ease, margin .28s ease; }
+  .nav-toggle:checked ~ nav.site {
+    max-height: 26rem; opacity: 1; margin: .35rem 0 .75rem; }
+  nav.site a { padding: .7rem .85rem; border-radius: 10px; font-size: 1rem; }
+  nav.site a::after { display: none; }
+  .nav-toggle:focus-visible ~ .burger { outline: 2px solid var(--brand); outline-offset: 2px; }
+}
+
+/* breadcrumb: quieter, with a proper separator */
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem;
+  font-size: .8rem; color: var(--muted); padding-top: 1.5rem; margin: 0 0 1.1rem; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---- nav: keep the burger on-screen on phones (lockup must be shrinkable) ---- */
+@media (max-width: 52rem) {
+  header.site .wrap { flex-wrap: wrap; gap: .6rem; }
+  .logo { flex: 1 1 auto; min-width: 0; }
+  .logo-mark { flex: 1 1 auto; min-width: 0; }
+  .logo-mark .lk { height: auto; max-height: 3.2rem; max-width: 100%; width: auto; }
+  .burger { flex: 0 0 auto; margin-left: auto; }
+}
+
+/* ======= HOME-ANSWERS-V2: dt/dd must stay paired, so grid the wrapper divs ======= */
+.answers { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.5rem 2.2rem; margin: 1.5rem 0 0; padding: 0; max-width: none !important; }
+.answers .a-item { min-width: 0; padding-bottom: 1.15rem; border-bottom: 1px solid var(--line); }
+.answers dt { margin: 0 0 .35rem; font-weight: 650; font-size: 1.02rem; line-height: 1.35; }
+.answers dt a { text-decoration: none; }
+.answers dt a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.answers dd { margin: 0; color: var(--muted); font-size: .93rem; line-height: 1.55; }
+@media (max-width: 40rem) { .answers { grid-template-columns: 1fr; gap: 1.1rem; } }
+
+/* ======= SUBNAV-V1: the breadcrumb bar also exposes the footer's page groups ======= */
+main > .wrap:has(.breadcrumb) { display: flex; align-items: center; flex-wrap: wrap;
+  gap: .5rem 1.25rem; padding-top: 1.05rem; padding-bottom: .9rem; }
+main > .wrap > .breadcrumb { padding-top: 0 !important; margin: 0 !important; }
+
+.subnav { position: relative; margin-left: auto; font-size: .8rem; }
+.subnav > summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem;
+  padding: .32rem .7rem; border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: var(--surface); white-space: nowrap;
+  transition: color .15s ease, border-color .15s ease; }
+.subnav > summary::-webkit-details-marker { display: none; }
+.subnav > summary::after {
+  content: ""; width: .42rem; height: .42rem; margin-left: .1rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px); transition: transform .18s ease; }
+.subnav[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+.subnav > summary:hover { color: var(--brand); border-color: var(--brand-line, var(--brand)); }
+.subnav > summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.subnav-grid {
+  position: absolute; right: 0; top: calc(100% + .5rem); z-index: 60;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.1rem 1.9rem; min-width: min(34rem, 86vw);
+  padding: 1.1rem 1.3rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); box-shadow: 0 24px 50px -24px rgba(8,11,18,.5); }
+.subnav-h { margin: 0 0 .45rem; font-size: .68rem; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.subnav-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.subnav-col a { display: block; padding: .2rem 0; font-size: .88rem;
+  color: var(--ink-2, var(--ink)); text-decoration: none; }
+.subnav-col a:hover { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.subnav-col a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+
+@media (max-width: 40rem) {
+  .subnav { margin-left: 0; }
+  .subnav-grid { right: auto; left: 0; min-width: min(22rem, 92vw);
+    grid-template-columns: 1fr; gap: .9rem; }
+}
+
+
+/* ======= ANSWERS-SPAN-V1 =======
+   On the newer sites `main .sec` is itself a 2-column multicol container, so dl.answers was laid
+   out inside a single 639px column and its auto-fit grid collapsed to one track. Span all columns
+   like the other block-level children already do. */
+main .sec > .answers, main .sec > dl.answers { column-span: all; break-inside: avoid; }
+
+/* ======= ARROW-ICON-V1 =======
+   Unicode arrow glyphs (\2193, \2192) depend on the rendering font having that codepoint and are
+   inconsistent across browsers/platforms. Draw the arrow from borders instead -- no font, no SVG,
+   renders identically everywhere. */
+.btn-hero::after {
+  content: "" !important;
+  width: .44rem; height: .44rem;
+  flex: 0 0 auto;
+  margin-left: .2rem;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+  transform-origin: center; }
+.btn-hero { align-items: center; }
+
+/* the same chevron for card links, replacing the "\2192" glyph */
+main .sec ul:has(> li > a > strong) > li a strong::after,
+.card-link::after {
+  content: "" !important;
+  display: inline-block;
+  width: .38rem; height: .38rem;
+  margin-left: .45rem;
+  vertical-align: .06em;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg); }
+
+/* ======= FIGURES-CARD-V1 =======
+   Templated state pages cannot have 100 genuinely distinct photographs, so their text-only sections
+   are paired with a card built from that page's own BEA figures instead. Same grid as the photo. */
+.figures {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); padding: 1.15rem 1.25rem 1rem;
+  max-width: none; }
+.figures-h { margin: 0 0 .85rem; font-size: .7rem; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.figures dl { margin: 0; padding: 0; display: grid; gap: .8rem; }
+.figures dl > div { display: grid; gap: .1rem;
+  padding-bottom: .75rem; border-bottom: 1px solid var(--line); }
+.figures dl > div:last-child { padding-bottom: 0; border-bottom: 0; }
+.figures dt { margin: 0; font-size: .78rem; color: var(--muted); }
+.figures dd { margin: 0; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.figures dd b { font-size: 1.22rem; font-weight: 700; line-height: 1.15;
+  color: var(--brand-ink, var(--brand)); font-variant-numeric: tabular-nums; }
+.figures dd span { font-size: .8rem; color: var(--muted); }
+.figures-src { margin: .9rem 0 0; font-size: .7rem; color: var(--muted); }
+
+
+/* ======= ANSWERS-ALIGN-V1 =======
+   One rule per item, sitting at the row baseline rather than at each item's own text height, so
+   the dividers line up across the row. */
+.answers { align-items: stretch; }
+.answers .a-item {
+  display: flex; flex-direction: column;
+  padding-bottom: 1.1rem; border-bottom: 1px solid var(--line); }
+.answers dt { margin: 0 0 .35rem; }
+
+
+/* content-column geometry: the full-width bands compute their inner padding
+   from these, so they must mirror this site's actual .wrap. */
+:root { --col: 1152px; --colpad: clamp(1.15rem, 4vw, 2.5rem); }
+/* ============================================================================
+   HERO BAND — single source of truth
+   Supersedes: the overlay hero, its scrim and localised shade, HERO-BLEED-V1,
+   COL-ALIGN-V1, SAFE-BLEED-V1 and the archetype hero ratios in layouts.css.
+   The band is a sibling of .wrap, so its width is 100% of <main> and its inner
+   padding is a PERCENTAGE of itself -- never vw, which would count the scrollbar.
+   ========================================================================== */
+.hero-band, .trust-band { width: 100%; max-width: 100%; }
+.hero-band {
+  color: #fff; overflow: hidden;
   background:
-    linear-gradient(100deg,
-      rgba(8,11,18,.58) 0%,
-      rgba(8,11,18,.42) 42%,
-      rgba(8,11,18,.16) 74%,
-      rgba(8,11,18,.02) 100%); }
+    radial-gradient(120% 140% at 88% 12%,
+      color-mix(in srgb, var(--accent, var(--brand)) 30%, transparent) 0%, transparent 60%),
+    linear-gradient(152deg,
+      color-mix(in srgb, var(--brand) 58%, #05070d) 0%,
+      color-mix(in srgb, var(--brand) 75%, #05070d) 62%,
+      color-mix(in srgb, var(--brand) 62%, #05070d) 100%); }
 
-.hero > div { position: relative; z-index: 2; max-width: 58ch; min-width: 0; }
-.hero h1 { color: #fff; margin-top: 0;
-  text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 14px rgba(0,0,0,.45); }
-/* the brand callout becomes plain text on the image */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+  gap: clamp(1.75rem, 3.2vw, 3rem);
+  align-items: center;
+  margin: 0; width: auto; max-width: none;
+  border-radius: 0; box-shadow: none; min-height: 0; position: relative;
+  padding-block: clamp(3rem, 5vw, 5rem);
+  padding-inline: max(var(--colpad), calc((100% - var(--col)) / 2 + var(--colpad)));
+  box-sizing: border-box; }
+.hero::after, .hero > div::before { content: none; display: none; }
+
+.hero > div { max-width: 58ch; min-width: 0; display: flex; flex-direction: column;
+  align-items: flex-start; position: relative; z-index: 1; }
+.hero > figure { position: static; inset: auto; margin: 0; align-self: center; max-width: none; }
+.hero > figure img {
+  width: 100%; height: auto; max-height: none; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 34px 64px -28px rgba(0,0,0,.72), 0 2px 6px rgba(0,0,0,.28); }
+.hero > figure figcaption { display: none; }
+
+/* ink: the copy sits on a solid gradient, so no text shadows are needed */
+.hero > div, .hero > div * { color: rgba(255,255,255,.95); text-shadow: none; }
+.hero > div h1 { color: #fff; margin-top: 0; margin-bottom: .75rem;
+  font-weight: 800; letter-spacing: -.03em; }
+.hero .eyebrow {
+  font-family: var(--font-display, var(--font));
+  font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  font-size: .76rem; line-height: 1.35; color: rgba(255,255,255,.88);
+  margin: 0 0 .7rem; display: inline-flex; align-items: center; gap: .5rem; }
+.hero .eyebrow span { opacity: .55; }
 .hero p.answer {
-  background: none !important; box-shadow: none !important; padding: 0 !important;
-  border: 0 !important; border-radius: 0 !important;
-  color: rgba(255,255,255,.95); max-width: 54ch;
-  text-shadow: 0 1px 2px rgba(0,0,0,.6), 0 1px 10px rgba(0,0,0,.5); }
-.hero p.answer strong, .hero p.answer em { color: #fff; }
-.hero p.answer a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-.hero p.updated { color: rgba(255,255,255,.78); }
-.hero p.updated a, .hero p.updated time { color: rgba(255,255,255,.92); }
+  background: none; box-shadow: none; padding: 0; border: 0; border-radius: 0;
+  font-size: clamp(1.02rem, .97rem + .28vw, 1.18rem); line-height: 1.6; font-weight: 450;
+  margin-bottom: 1.35rem; max-width: none; }
+.hero p.updated { display: none; }
+.hero > div a:not(.btn-hero) { color: #fff; text-decoration: underline;
+  text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.6); }
+.hero > div a:not(.btn-hero):hover { text-decoration-color: #fff; }
+
+/* panels that carry their own light background become translucent over the band */
+.hero .disclaimer, .hero .note, .hero .warn {
+  background: rgba(0,0,0,.20); border: 1px solid rgba(255,255,255,.26);
+  color: rgba(255,255,255,.90); margin-top: 1.4rem; }
+.hero .disclaimer a, .hero .note a { color: #fff; }
+
+.hero-cta { margin: 0 0 1.15rem; display: flex; flex-wrap: wrap; gap: .7rem; }
+.btn-hero {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .8rem 1.35rem; border-radius: 999px;
+  background: #fff; color: var(--brand-ink, var(--brand));
+  font-weight: 650; font-size: .96rem; text-decoration: none;
+  border: 1px solid rgba(255,255,255,.9);
+  box-shadow: 0 12px 26px -14px rgba(0,0,0,.7);
+  transition: transform .16s ease, box-shadow .16s ease; }
+.hero > div .btn-hero, .hero > div .btn-hero * { color: var(--brand-ink, var(--brand)); }
+.btn-hero:hover { transform: translateY(-1px); box-shadow: 0 16px 30px -14px rgba(0,0,0,.78); }
+.btn-hero:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.hero-chips { display: flex; flex-wrap: wrap; gap: .55rem .95rem;
+  list-style: none; padding: 0; margin: 0; }
+.hero-chips li { display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .88rem; font-weight: 550; color: rgba(255,255,255,.93); }
+.hero-chips svg { width: 1rem; height: 1rem; flex: 0 0 auto; color: #fff; }
+
+/* the trust strip is its own band directly beneath */
+.trust-band { background: var(--brand); color: var(--on-brand, #fff); margin-bottom: 2.4rem; }
+.trust-band .wrap { padding-block: .95rem; }
+.trust-band .trustbar {
+  margin: 0; width: auto; max-width: none; padding: 0; background: none;
+  list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 2rem;
+  font-size: .9rem; font-weight: 550; color: inherit; }
+.trust-band .trustbar li { display: flex; align-items: center; gap: .45rem; margin: 0; color: inherit; }
+.trust-band .trustbar li::before {
+  content: ""; width: .9rem; height: .9rem; flex: none; border-radius: 50%;
+  background: color-mix(in srgb, #fff 28%, transparent);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.85); }
+
+main > .wrap > .breadcrumb { padding-top: 0; margin: 0; }
+
+@media (max-width: 54rem) {
+  .hero { grid-template-columns: 1fr; gap: 1.75rem; padding-block: 2.6rem; }
+  .hero > div { max-width: none; order: 1; }
+  .hero > figure { order: 2; }
+  .hero > figure img { aspect-ratio: 16 / 10; }
+  .hero .eyebrow { font-size: .7rem; }
+  .hero-chips { gap: .4rem .8rem; }
+  .hero-chips li { font-size: .82rem; }
+  .btn-hero { padding: .72rem 1.15rem; font-size: .92rem; }
+  .trust-band .trustbar { font-size: .82rem; gap: .4rem 1.2rem; }
+}
+
+/* layouts.css gives each archetype its own hero ratio (.layout-utility 1.3/.7,
+   .layout-magazine 1.25/.75) and loads after site.css, so a bare `.hero` (0,1,0) loses the tie.
+   `html .hero-band > .hero` is (0,2,1) and wins on specificity -- no !important needed. */
+html .hero-band > .hero {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+  gap: clamp(1.75rem, 3.2vw, 3rem); }
+@media (max-width: 54rem) {
+  html .hero-band > .hero { grid-template-columns: 1fr; gap: 1.75rem; }
+}
+
+/* ============================================================================
+   PRODUCTION POLISH — accessibility, motion, rhythm and surface detail
+   ========================================================================== */
+
+/* --- keyboard focus: one visible ring everywhere, never removed --- */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 3px; }
+.hero :where(a, button, summary):focus-visible,
+.trust-band :where(a, button):focus-visible { outline-color: #fff; }
+
+/* --- skip link: first tab stop on every page --- */
+.skip-link {
+  position: absolute; left: .75rem; top: -3rem; z-index: 200;
+  padding: .6rem 1rem; border-radius: 0 0 8px 8px;
+  background: var(--brand); color: var(--on-brand, #fff);
+  font-size: .9rem; font-weight: 600; text-decoration: none;
+  transition: top .18s ease; }
+.skip-link:focus { top: 0; }
+
+/* --- respect reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+/* --- numbers read as data, not prose --- */
+table, .calc-summary, .figures dd b, .stats, td, th { font-variant-numeric: tabular-nums; }
+
+/* --- vertical rhythm: one spacing scale between sections --- */
+main .sec { margin-block: clamp(2.2rem, 3.4vw, 3.4rem); }
+main .sec > h2 { margin-bottom: .9rem; letter-spacing: -.015em; }
+main .sec > h2 + p { margin-top: 0; }
+main .sec > p + h3, main .sec > ul + h3 { margin-top: 1.9rem; }
+
+/* --- surfaces: consistent radius, one shadow language --- */
+.sec-photo img, .figures, .faq details, .table-wrap {
+  border-radius: var(--radius); }
+
+/* --- card link lists: a calm lift on hover, no jitter --- */
+main .sec ul:has(> li > a > strong) > li {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+@media (hover: hover) {
+  main .sec ul:has(> li > a > strong) > li:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--brand) 38%, var(--line));
+    box-shadow: 0 2px 4px rgba(15,23,42,.05), 0 16px 32px -20px rgba(15,23,42,.5); }
+}
+
+/* --- FAQ: clearer affordance --- */
+.faq details { transition: border-color .18s ease, background-color .18s ease; }
+.faq summary { cursor: pointer; }
+.faq summary:hover { color: var(--brand); }
+
+/* --- tables: zebra + sticky head make long data legible --- */
+main .sec table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--ink) 2.5%, transparent); }
+main .sec table thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+
+/* --- images never stretch --- */
+img { max-width: 100%; height: auto; }
+
+/* --- selection matches the brand --- */
+::selection { background: color-mix(in srgb, var(--brand) 26%, transparent); color: var(--ink); }
+.hero ::selection, .trust-band ::selection { background: rgba(255,255,255,.3); color: #fff; }
+
+/* ======= MOBILE-TOUCH-V1 =======
+   WCAG 2.2 2.5.8 wants a 24x24 CSS px target. Every navigation control already cleared it except
+   the breadcrumb link (22px). Inline links inside a sentence are exempt, so prose is left alone.
+   Small uppercase labels were rendering at 10.9-11.8px; floored at 12px on phones. */
+.breadcrumb a { display: inline-flex; align-items: center; min-height: 24px; }
+.subnav-h { font-size: .74rem; }
 
 @media (max-width: 48rem) {
-  .hero { min-height: 300px; padding: 1.35rem; }
-  .hero::after { background: linear-gradient(180deg, rgba(8,11,18,.62) 0%, rgba(8,11,18,.88) 70%); }
-  .hero > div { max-width: none; }
+  .hero .eyebrow { font-size: .75rem; }
+  main .sec table th { font-size: .75rem; }
+  .subnav-h { font-size: .75rem; }
+  .figures-src, .sec-photo figcaption, .src { font-size: .75rem; }
+  .f-legal p { font-size: .8rem; }
+}
+
+/* last sub-12px labels: footer column headings and the hero kicker between 48-54rem */
+@media (max-width: 54rem) {
+  .f-col h3 { font-size: .78rem; }
+  .hero .eyebrow { font-size: .75rem; }
+}
+
+/* the calculator widget's own labels were the last text under 12px on phones */
+@media (max-width: 48rem) {
+  .calc-table th, .calc-table td, table th { font-size: .75rem; }
+  .calc-summary .k, .k { font-size: .75rem; }
+}
+
+/* match the original specificity exactly: .calc-stat .k is (0,2,0), table thead th is (0,0,2) */
+@media (max-width: 48rem) {
+  .calc-stat .k { font-size: .75rem; }
+  table thead th, .calc-table thead th { font-size: .75rem; }
+}
+
+/* the figures-card heading was the last sub-12px text (site 20 state pages) */
+@media (max-width: 48rem) { .figures-h { font-size: .75rem; } }
+
+/* ======= DEBOX-ALL-V1 =======
+   Archetype banding tinted alternate sections, but the tint stops at the content column instead of
+   reaching the viewport edge, so it reads as a box rather than a band. The newer sites were de-boxed
+   earlier for the same reason; this brings the older six in line. Separation now comes from vertical
+   rhythm, a hairline rule between sections, and the brand accent bar above each h2. */
+.layout-magazine main .sec:nth-of-type(even),
+.layout-bold main .sec:nth-of-type(even),
+.layout-dashboard main .sec:nth-of-type(even) {
+  background: none !important;
+  padding-block: 0 !important;
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;
+  width: auto !important;
+  border-radius: 0 !important;
+  box-shadow: none !important; }
+
+main .sec { background: none; border: 0; box-shadow: none; }
+main .sec + .sec {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(2rem, 3vw, 2.9rem); }
+main .sec { margin-block: clamp(2.2rem, 3.4vw, 3.2rem); }
+
+/* ======= LINK-CARD-V1 =======
+   Sources and Related are short link lists that were running full width one item per row, leaving
+   most of the band empty. They become a single panel with the links flowing in columns on desktop.
+   .is-short marks exactly these 42 sections fleet-wide. */
+
+main .sec.is-short > h2 {
+  font-size: clamp(1rem, .95rem + .25vw, 1.15rem);
+  margin: 0 0 .85rem; letter-spacing: -.01em; }
+main .sec.is-short > h2::before { width: 1.9rem; height: 2px; }
+
+main .sec.is-short > ul {
+  list-style: none; margin: 0; padding: 0; max-width: none !important;
+  display: grid; gap: .5rem 1.8rem; }
+main .sec.is-short > ul > li { margin: 0; padding-left: 1rem; position: relative; break-inside: avoid; }
+main .sec.is-short > ul > li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: .34rem; height: .34rem; border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 62%, transparent); }
+main .sec.is-short > ul > li > a { text-decoration: none; font-weight: 550; }
+main .sec.is-short > ul > li > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+
+@media (min-width: 48rem) { main .sec.is-short > ul { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 72rem) { main .sec.is-short > ul { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+/* ======= ENDMATTER-V1 =======
+   Sources and Related sit side by side in one row on desktop, each a single-column list.
+   They are always adjacent siblings, so one wrapper grids them without touching page flow. */
+.endmatter { display: grid; gap: 1.25rem; align-items: start;
+  margin-block: clamp(1.8rem, 2.6vw, 2.4rem); }
+@media (min-width: 62rem) { .endmatter { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.6rem; } }
+
+/* one column inside each card, whatever the viewport */
+main .sec.is-short > ul { grid-template-columns: minmax(0, 1fr) !important; gap: .5rem !important; }
+
+/* .endmatter is a new direct child of main > .wrap, so the measure cap applied to it */
+main .wrap > .endmatter, .endmatter { max-width: none !important; width: auto; }
+
+/* ======= ENDMATTER-V2 =======
+   Two defects: (1) Related is the 2nd <section> in the wrapper, so the de-box rule
+   `.layout-* main .sec:nth-of-type(even)` (0,3,1) beat the card styling and stripped its radius and
+   padding; (2) `height:100%` stretched Sources to match Related, leaving dead space under its links.
+   `main .endmatter > .sec.is-short` is also (0,3,1) and comes later, so it wins the tie. */
+main .endmatter > .sec.is-short {
+  height: auto !important;
+  align-self: start !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-top: 1px solid var(--line) !important;
+  border-radius: var(--radius) !important;
+  padding: 1.25rem 1.4rem 1.3rem !important;
+  margin: 0 !important;
+  box-shadow: none !important; }
+
+/* the note under Related is a footnote, not a second box */
+main .endmatter > .sec.is-short > .disclaimer {
+  margin: 1rem 0 0 !important; padding: .8rem 0 0 !important;
+  background: none !important; border: 0 !important;
+  border-top: 1px solid var(--line) !important; border-radius: 0 !important;
+  font-size: .82rem; }
+
+/* ======= TABLE-WIDTH-V2 =======
+   Restores the table sizing lost when FIXPACK-V2 was deleted during the hero consolidation.
+   Two defects it fixes:
+     1. base `table{display:block}` makes the bordered block box full width while the inner
+        anonymous table box shrinks to its content -- a dead gap inside the panel;
+     2. `main .sec > *{max-width:var(--measure)}` capped data tables at the prose measure (640px)
+        inside a 1072px section.
+   `main .sec table` is (0,1,2) so it beats both without !important. Below 48rem the table goes
+   back to a block scroll container, which is what keeps narrow screens from overflowing. */
+@media (min-width: 48rem) {
+  main .sec table, main .sec table.data, main .sec .table-wrap > table {
+    display: table; width: 100%; max-width: none;
+    table-layout: auto; overflow-x: visible; }
+  main .sec > .table-wrap { max-width: none; }
+}
+@media (max-width: 47.99rem) {
+  main .sec table, main .sec table.data {
+    display: block; overflow-x: auto; max-width: 100%; }
+}
+
+/* ======= HERO-PHOTO-SPEC-V1 =======
+   The newer sites declare `.hero .hero-photo img` (0,2,1), which outranks the consolidated
+   `.hero > figure img` (0,1,2) -- b beats c. Their `max-height:280px` was flattening the hero
+   photograph from 4/3 to roughly 21/9 on sites 18-21. Same specificity, declared later, so this
+   wins by order without !important. */
+.hero .hero-photo img, .hero .hero-art img {
+  width: 100%; height: auto; max-height: none;
+  aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 34px 64px -28px rgba(0,0,0,.72), 0 2px 6px rgba(0,0,0,.28); }
+@media (max-width: 54rem) {
+  .hero .hero-photo img, .hero .hero-art img { aspect-ratio: 16 / 10; max-height: none; }
+}
+
+/* ======= NO-COLUMN-PROSE-V1 =======
+   Body paragraphs were flowing in two columns. At a 272-character median that is two lines per
+   column, so a single sentence gets cut in half across a 44px gutter -- it reads as broken text
+   rather than as columns. Prose is single-column everywhere now; the width is spoken for by the
+   paired photograph, the figures card, or the full-width data tables. */
+main .wrap > .sec > p,
+main .wrap > .sec:not(.is-short):not(.is-wide) > p,
+main .sec > p, main .sec > ul, main .sec > ol {
+  columns: auto !important; }
+main .sec { column-count: auto !important; column-gap: normal !important; }
+
+/* ======= TABLE-BREAKPOINT-V3 =======
+   The switch to a real table box happened at 48rem (768px), but several data tables have a
+   min-content width larger than a 768px column, so they overflowed the page by up to 150px with no
+   scroll container. Hold the block/scroll mode until 64rem, where every table in the fleet fits. */
+@media (max-width: 63.99rem) {
+  main .sec table, main .sec table.data, main .sec .table-wrap > table {
+    display: block; overflow-x: auto; max-width: 100%; width: 100%;
+    -webkit-overflow-scrolling: touch; }
+}
+@media (min-width: 64rem) {
+  main .sec table, main .sec table.data, main .sec .table-wrap > table {
+    display: table; width: 100%; max-width: none;
+    table-layout: auto; overflow-x: visible; }
+}
+
+/* ======= UNSTICK-MEDIA-V1 =======
+   The paired photograph and figures card were `position: sticky`. Measured travel across the fleet
+   ranged from 86px to 1,159px, interleaved on the same page: short sticks read as a rendering
+   glitch, long ones freeze the image for a full screen of scrolling. The media is already aligned
+   to the top of its text block, so sticky bought nothing. The site header stays sticky. */
+main .sec > .sec-photo,
+main .sec > .figures,
+main .sec:has(> .sec-photo) > .sec-photo,
+main .sec:has(> .figures) > .figures {
+  position: static !important;
+  top: auto !important;
+  align-self: start; }
+
+/* ======= STICKY-THEAD-V2 =======
+   thead th was sticky at top:0, which parks it behind the 79px sticky site header — the column
+   labels vanished while rows scrolled past. Park it below the header instead, and only where the
+   table is a real table; below 64rem the table is a block scroll container and a sticky header
+   inside it fights the horizontal scroll. Median table here is 6 rows, so this only ever engages
+   on the ~10% that run long. */
+@media (min-width: 64rem) {
+  main .sec table thead th {
+    position: sticky; top: 5rem; z-index: 2;
+    background: var(--surface);
+    box-shadow: inset 0 -1px 0 var(--line); }
+}
+@media (max-width: 63.99rem) {
+  main .sec table thead th { position: static; box-shadow: none; }
+}
+
+/* ======= STICKY-THEAD-V3: remove =======
+   Sticky column headers were added during the polish pass and caused two defects: at top:0 they
+   parked behind the 79px sticky site header, and when moved below it they anchored to the table's
+   own scroll container rather than the viewport, still ending up 54px out of sight. The median
+   table here is 6 rows and only 10% exceed 10, so the feature was never earning its complexity.
+   Static headers; the site header remains the only sticky element on the page. */
+main .sec table thead th,
+main .sec table th {
+  position: static !important;
+  top: auto !important;
+  z-index: auto !important;
+  box-shadow: none !important; }
+
+/* ======= PAIR-FLOAT-V1 =======
+   The grid pairing needed the media to span the text rows, but CSS cannot know how many rows that
+   is. `grid-row: 2 / span 50` produced 51 grid rows and up to 770px of empty tail below the content.
+   A float needs no row arithmetic: the text simply flows around the image, the section is exactly as
+   tall as its content, and the side still alternates. */
+@media (min-width: 64rem) {
+  main .sec:has(> .sec-photo):not(:has(table)):not(:has(.faq)):not(:has(> ul > li > a > strong)),
+  main .sec:has(> .figures):not(:has(table)):not(:has(.faq)):not(:has(> ul > li > a > strong)) {
+    display: block !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important; }
+
+  main .sec > .sec-photo,
+  main .sec > .figures {
+    grid-row: auto !important; grid-column: auto !important;
+    float: right; width: 38%; max-width: 26rem;
+    margin: .3rem 0 1.3rem 2.2rem; }
+  main .sec:nth-of-type(even) > .sec-photo,
+  main .sec:nth-of-type(even) > .figures {
+    float: left; margin: .3rem 2.2rem 1.3rem 0; }
+
+  /* text flows around the float, so it must not be capped at the prose measure */
+  main .sec:has(> .sec-photo) > :is(p, ul, ol, h3),
+  main .sec:has(> .figures) > :is(p, ul, ol, h3) { max-width: none; }
+
+  /* contain the float so the next section cannot ride up beside it */
+  main .sec:has(> .sec-photo)::after,
+  main .sec:has(> .figures)::after { content: ""; display: block; clear: both; }
+}
+
+/* ======= PAIR-FLOAT-V2 =======
+   PAIR-FLOAT-V1 floated the photograph in EVERY section that had one, including the card-grid
+   sections (Calculators, Guides). Those have their own two-column rule; `display:block !important`
+   plus a float collapsed their card list to a single 665px column beside the image. Float only the
+   prose sections, and explicitly hand the card sections back to their grid. */
+@media (min-width: 64rem) {
+  /* card sections: no float, restore the media + card grid */
+  main .sec:has(> ul > li > a > strong) > .sec-photo,
+  main .sec:has(> ul > li > a > strong) > .figures {
+    float: none !important; width: auto !important; max-width: none !important;
+    margin: 0 !important; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) {
+    display: grid !important;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr) !important;
+    gap: 1rem 2.2rem !important; align-items: center; column-count: 1; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) > h2 { grid-column: 1 / -1; grid-row: 1; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) > .sec-photo { grid-column: 1; grid-row: 2; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) > ul { grid-column: 2; grid-row: 2; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong):nth-of-type(even) > .sec-photo { grid-column: 2; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong):nth-of-type(even) > ul { grid-column: 1; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong)::after { content: none; }
+
+  /* prose sections keep the float */
+  main .sec:has(> .sec-photo):not(:has(table)):not(:has(.faq)):not(:has(> ul > li > a > strong)),
+  main .sec:has(> .figures):not(:has(table)):not(:has(.faq)):not(:has(> ul > li > a > strong)) {
+    display: block !important; }
+}
+
+/* ======= PAIR-FLOAT-V3 =======
+   The obsolete PROSE-PHOTO grid set `margin: .35rem 0 0` on the photograph at a higher specificity
+   than the float rule, which zeroed the gutter — the text ran flush against the image edge. The grid
+   is gone; state the float geometry once, here, at a specificity nothing earlier can beat. */
+@media (min-width: 64rem) {
+  /* tables and FAQ blocks cannot flow around a float — they get pushed or overlap — so only
+     prose sections float their media. Everywhere else the media stays a full-width block. */
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)) > .sec-photo,
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)) > .figures {
+    float: right; width: 38%; max-width: 26rem;
+    margin: .35rem 0 1.4rem clamp(1.8rem, 2.6vw, 2.6rem) !important; }
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)):nth-of-type(even) > .sec-photo,
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)):nth-of-type(even) > .figures {
+    float: left;
+    margin: .35rem clamp(1.8rem, 2.6vw, 2.6rem) 1.4rem 0 !important; }
+  main .sec:has(table) > .sec-photo, main .sec:has(.faq) > .sec-photo,
+  main .sec:has(table) > .figures,   main .sec:has(.faq) > .figures {
+    float: none !important; width: auto !important; max-width: none !important;
+    margin: .35rem 0 1.4rem !important; }
+  main .sec > .sec-photo img { aspect-ratio: 4 / 3; height: auto; width: 100%; }
+}
+
+/* ======= FLOAT-HEIGHT-V1 =======
+   Two faults made the floated image overhang its text: an old card-grid rule gave any section
+   containing a <ul> a PORTRAIT 4/5 crop (509px tall beside 292px of text), and nothing capped the
+   height. Floated media is now always landscape and bounded, so the image finishes with the text
+   instead of leaving a column of dead space beside it. */
+@media (min-width: 64rem) {
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)) > .sec-photo img {
+    aspect-ratio: 3 / 2 !important;
+    max-height: 15rem !important;
+    width: 100%; height: auto; object-fit: cover; }
+  main .sec:not(:has(> ul > li > a > strong)):not(:has(table)):not(:has(.faq)) > .figures {
+    max-height: none; }
+}
+
+/* ======= STAT-STRIP-V1 =======
+   On the 51 state pages two template sections carry only 2-3 lines of copy, far too little to sit
+   beside a 240-358px block — the media overhung the text by 163-256px. The decorative photograph is
+   gone from "Where in <state> is cheapest?"; the BEA stat card stays, because it is data, but runs
+   full width as a compact strip instead of a tall floated card. */
+main .sec > .figures--strip {
+  float: none !important; width: auto !important; max-width: none !important;
+  margin: .4rem 0 1.2rem !important; }
+main .sec > .figures--strip dl {
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: .9rem 1.6rem; }
+main .sec > .figures--strip dl > div { padding-bottom: 0; border-bottom: 0; }
+main .sec > .figures--strip dd b { font-size: 1.15rem; }
+
+/* ======= SECTION-RHYTHM-V1 =======
+   Section separation had drifted to three different values across the fleet: 50px on s08/s11
+   (no padding above the heading, so the divider sat hard against it), 78px on s18-s21 and 93px on
+   s09. One scale everywhere: 2.6rem of margin, the hairline, then 2.4rem before the next heading. */
+main .sec:not(.is-short) {
+  margin-block: 2.6rem !important; }
+main .sec:not(.is-short) + .sec:not(.is-short) {
+  border-top: 1px solid var(--line) !important;
+  padding-top: 2.4rem !important; }
+main .sec:first-of-type { margin-top: 1.6rem !important; border-top: 0 !important; padding-top: 0 !important; }
+/* the end-matter cards keep their own padding and sit inside the wrapper */
+.endmatter > .sec.is-short { margin-block: 0 !important; }
+
+/* ======= BAND-GAP-V1 =======
+   The content wrap sat flush against the hero/trust band — on s18, s20 and s21 the calculator panel
+   touched the coloured band with a 0px gap. Where a gap did exist (32-40px on s08) it came from
+   whichever element happened to be first, so it varied by page. Space it on the wrap itself and
+   zero the first child's own top margin, so every page clears the band by the same amount. */
+main > .hero-band + .wrap,
+main > .trust-band + .wrap {
+  padding-top: clamp(1.9rem, 2.6vw, 2.9rem); }
+main > .hero-band + .wrap > :first-child,
+main > .trust-band + .wrap > :first-child {
+  margin-top: 0 !important; }
+main > .hero-band + .wrap > .sec:first-child,
+main > .trust-band + .wrap > .sec:first-child {
+  border-top: 0 !important; padding-top: 0 !important; }
+
+/* ======= H2-ACCENT-V1 =======
+   layouts.css gives the editorial archetype a full-width h2 rule, but h2 is capped at --measure
+   (608px) while the section divider spans the column (1072px) — two horizontal rules of different
+   lengths stacked a few pixels apart, which reads as a broken divider. Every other archetype uses a
+   short accent bar; bring editorial in line. The minimal and bold variants are already short. */
+.layout-editorial main .sec > h2::before {
+  width: 2.75rem !important; height: 3px !important;
+  border-radius: 2px !important; opacity: 1 !important; }
+
+/* ======= CARD-PHOTO-FIT-V1 =======
+   In the photo + card-grid sections the image kept its own aspect while the card column ran much
+   taller, leaving a tall empty block under the picture. Stretch the row and let the photograph fill
+   its column, so the two sides finish together. */
+@media (min-width: 64rem) {
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) {
+    align-items: stretch !important; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) > .sec-photo {
+    height: 100%; margin: 0 !important; display: flex; }
+  main .sec:has(> .sec-photo):has(> ul > li > a > strong) > .sec-photo img {
+    height: 100% !important; width: 100%; object-fit: cover;
+    aspect-ratio: auto !important; max-height: none !important; }
+}
+
+/* ======= H2-ACCENT-V2 =======
+   The accent bar is absolutely positioned against the section, so the 2.4rem of padding added for
+   section rhythm pushed the heading away from its own bar. Anchor the bar to the heading instead. */
+main .sec > h2 { position: relative; padding-top: .85rem; }
+main .sec > h2::before { top: 0 !important; left: 0 !important; }
+
+/* ======= FAQ-PARITY-V1 =======
+   The newer sites only had `.faq details { border-bottom }` and `.faq summary { font-weight }`, so
+   their questions still showed the browser's raw disclosure triangle while the older six showed a
+   styled +/- panel. Same accordion everywhere. */
+.faq details {
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem; margin-bottom: .65rem; background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  transition: border-color .15s, box-shadow .15s; }
+.faq details:hover { border-color: var(--brand-line, var(--brand)); }
+.faq details[open] { border-color: var(--brand-line, var(--brand)); }
+.faq summary {
+  font-weight: 620; cursor: pointer; list-style: none; display: flex;
+  justify-content: space-between; align-items: center; gap: 1rem; color: var(--ink); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::marker { content: ""; }
+.faq summary::after {
+  content: "+"; font-size: 1.35rem; font-weight: 300; color: var(--brand); line-height: 1; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details > *:not(summary) { margin-top: .8rem; }
+
+/* the link lists inside the end-matter cards should not use raw bullets either */
+.endmatter .sec.is-short > ul { list-style: none; }
+
+/* ======= LONE-CARD-V1 =======
+   A section holding a single link card stretched it across the full 1072px column, which reads as
+   an unfinished row rather than a deliberate one. Give a lone card a sensible width so it sits as a
+   feature card; two cards still split the row evenly. */
+@media (min-width: 64rem) {
+  main .sec > ul:has(> li:only-child) {
+    grid-template-columns: minmax(0, 34rem) !important; }
+  main .sec:has(> .sec-photo) > ul:has(> li:only-child) {
+    grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* ======= PRINT-RESULT-V1 =======
+   The Print button sits inside the calculator, so it should print the calculation. It was printing
+   the whole article while HIDING the input form — a result sheet with no record of what produced
+   it. Print the heading, the inputs (flattened, not as form furniture) and the result; drop the
+   nav, hero band, article sections, ad slots, actions and footer. */
+@media print {
+  header.site, nav.site, footer.site, .calc-actions, .ad-slot,
+  .breadcrumb, .subnav, .hero-band, .trust-band, .endmatter,
+  main .sec, .skip-link { display: none !important; }
+
+  /* the inputs are part of the record — show them, flat */
+  .calc-form { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .35rem 1.5rem; margin-bottom: 1rem; }
+  .calc-field, .calc-form label { break-inside: avoid; }
+  .calc-form input, .calc-form select {
+    border: 0 !important; border-bottom: 1px solid #999 !important; border-radius: 0 !important;
+    background: none !important; box-shadow: none !important; padding: 0 !important;
+    color: #000 !important; font-weight: 600; }
+  .calc-form input[type="checkbox"] { border: 1px solid #000 !important; }
+
+  main, main > .wrap { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  #calculator { border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+  h1 { font-size: 20pt; margin: 0 0 .6rem; }
+  .calc-summary { break-inside: avoid; }
+  .calc-table { width: 100%; }
+  body { color: #000; background: #fff; }
+  @page { margin: 16mm; }
+}
+
+/* the h1 lives inside .hero-band, so hiding the band dropped the title from the printout.
+   Keep the band as a plain heading block; drop its photo, eyebrow, lede, CTA and chips. */
+@media print {
+  .hero-band { display: block !important; background: none !important;
+    padding: 0 !important; min-height: 0 !important; margin: 0 0 .5rem !important; }
+  .hero-band .hero { display: block !important; padding: 0 !important;
+    min-height: 0 !important; margin: 0 !important; }
+  .hero-band .hero > div > *:not(h1) { display: none !important; }
+  .hero-band .hero > figure { display: none !important; }
+  .hero-band .hero > div { max-width: none !important; }
+  .hero-band h1, .hero-band .hero > div h1 { color: #000 !important; text-shadow: none !important; }
 }

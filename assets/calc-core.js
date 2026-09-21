@@ -135,9 +135,22 @@
     try { history.replaceState(null, '', `#${encodeURIComponent(JSON.stringify(state))}`); } catch (_) {}
   }
 
+  // Build the shareable link on demand from current state. navigator.clipboard is undefined on
+  // insecure origins (a LAN IP, say), and writeText can reject when permission is denied — the old
+  // code short-circuited on both and failed silently with no feedback at all.
+  const shareUrl = () => `${location.origin}${location.pathname}#${encodeURIComponent(JSON.stringify(state))}`;
+  const copyBtn = el('button', { type: 'button', onclick: () => {
+    const done = () => { copyBtn.textContent = 'Link copied'; setTimeout(() => { copyBtn.textContent = 'Copy link to this result'; }, 2000); };
+    const fallback = () => window.prompt('Copy this link:', shareUrl());
+    try {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(shareUrl()).then(done, fallback);
+      else fallback();
+    } catch (_) { fallback(); }
+  } }, 'Copy link to this result');
+
   root.append(form, out,
     el('div', { class: 'calc-actions' }, [
-      el('button', { type: 'button', onclick: () => navigator.clipboard && navigator.clipboard.writeText(location.href) }, 'Copy link to this result'),
+      copyBtn,
       el('button', { type: 'button', onclick: () => window.print() }, 'Print'),
     ]));
   rebuild();
